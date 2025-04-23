@@ -1,6 +1,3 @@
-Here's a suggested structure for your `README.md` file on GitHub that explains how to set up the project, including creating the directory structure, verifying it, and downloading necessary files:
-
----
 
 # 🧬 Endocrine Spatial Transcriptomics Analysis
 
@@ -150,6 +147,3 @@ Feel free to fork this project, create pull requests, or open issues if you enco
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
-
-You can save this content in a file called `README.md` in your repository's root directory. Let me know if you'd like further assistance!
