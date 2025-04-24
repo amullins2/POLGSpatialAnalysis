@@ -133,17 +133,13 @@ This will print the directory and file structure for you to manually inspect.
 
 After setting up the directory structure, downloading the required files, and verifying everything, you can proceed with running the **Space Ranger** analysis for spatial transcriptomics and other processing steps.
 
-Refer to the provided Jupyter notebook (`endocrine_spatial_pipeline.ipynb`) for step-by-step analysis.
+Refer to the provided Jupyter notebook (`****.ipynb`) for step-by-step analysis.
 
-Let me know if you need additional instructions or setup help!
 
 ---
 
-### Contributing
-
-Feel free to fork this project, create pull requests, or open issues if you encounter any problems.
 
 ### License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 
