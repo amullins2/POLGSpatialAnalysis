@@ -1,0 +1,14 @@
+# --- Step 1: Download spaceranger ---
+wget -O spaceranger.tar.gz "https://cf.10xgenomics.com/releases/spatial-exp/spaceranger-2.1.1.tar.gz"
+tar -xzvf spaceranger.tar.gz
+export PATH=$PWD/spaceranger-2.1.1:$PATH  # Add to PATH for this session
+
+# To make it permanent, add this line to ~/.bashrc or ~/.zshrc:
+# export PATH=/full/path/to/spaceranger-2.1.1:$PATH
+
+# --- Step 2: Download the 10x reference genome (mm10) ---
+mkdir -p reference
+cd reference
+wget -O refdata-gex-mm10-2020-A.tar.gz "https://cf.10xgenomics.com/supp/spatial-exp/refdata-gex-mm10-2020-A.tar.gz"
+tar -xvzf refdata-gex-mm10-2020-A.tar.gz
+cd ..
