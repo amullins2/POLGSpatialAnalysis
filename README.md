@@ -1,145 +1,129 @@
+# Spatial Transcriptomics Analysis – Visium HD Mouse Pancreas TMAs
 
-# 🧬 Endocrine Spatial Transcriptomics Analysis
+This repository contains code and documentation for analysing spatial transcriptomics data from four Visium HD tissue microarrays (TMAs) of fixed mouse pancreas. The study compares wild-type and Polg^mut mice across both sexes, focusing on transcriptional and pathway changes in endocrine regions.
 
-This repository contains the pipeline and scripts for analyzing mouse pancreas spatial transcriptomics data generated using the **Visium HD** platform. The goal is to analyze the **endocrine cell population** in the pancreas across several TMAs.
+## Overview
 
-## Project Structure
-
-Below is the required file structure for this project:
-
-```
-project/
-├── fastq/
-│   ├── TMA1_HE_S1_L001_R1_001.fastq.gz
-│   └── ...
-├── images/
-│   ├── TMA1_HE.jpg
-│   └── ...
-├── jsons/
-│   ├── TMA1_HE.json
-│   └── ...
-├── reference/
-│   └── 10x_mm10_reference/
-└── outputs/
-    ├── spaceranger/
-    └── microarray/
-```
-
-### Required Directories:
-1. **`fastq/`**: Contains the raw FASTQ files for each TMA.
-2. **`images/`**: Contains the images of the tissue sections for each TMA.
-3. **`jsons/`**: Contains the `.json` files generated from **MicroarrayProcessor**.
-4. **`reference/`**: Contains the reference genome files needed for **Space Ranger** (e.g., `10x_mm10_reference/`).
-5. **`outputs/`**: Output directory for **Space Ranger** and **MicroarrayProcessor** results.
+Each TMA contains 12 tissue cores (total 48 cores). Three regions of interest (ROIs) per sample were identified using Loupe Browser to isolate endocrine areas. Data are processed using SpaceRanger and analysed in R with Seurat and pathway enrichment tools.
 
 ---
 
-## Setup Instructions
+## 1. Data Preprocessing
 
-### Step 1: Create the Project Directory Structure
+### a. Run SpaceRanger
 
-Use the following commands to create the necessary directories for your project.
+Use the `run_spaceranger_all.sh` script to run `spaceranger count` for each tissue core.
 
-```bash
-mkdir -p project/fastq project/images project/jsons project/reference project/outputs/spaceranger project/outputs/microarray
-```
+- **Inputs**: FASTQ files and matched H&E images  
+- **Outputs**: Spatial gene expression matrices per core
 
----
+### b. Generate Metadata
 
-### Step 2: Download and Install `spaceranger`
+Create a metadata table including:
 
-First, you need to download and install **spaceranger**.
-
-```bash
-# Download spaceranger tarball
-wget -O spaceranger.tar.gz "https://cf.10xgenomics.com/releases/spatial-exp/spaceranger-2.1.1.tar.gz"
-
-# Extract the spaceranger tarball
-tar -xzvf spaceranger.tar.gz
-
-# Add spaceranger to your PATH
-export PATH=$PWD/spaceranger-2.1.1:$PATH
-```
-
-If you need to make this permanent, add `export PATH=$PWD/spaceranger-2.1.1:$PATH` to your `.bashrc`.
+- Genotype (wild-type or Polg^mut)
+- Sex (male or female)
+- TMA ID
+- Sample condition
+- Region of interest (ROI) annotation
 
 ---
 
-### Step 3: Download 10x Mouse Reference Data
+## 2. ROI Selection and Annotation
 
-In the `reference/` directory, download the **mm10 reference data**:
-
-```bash
-cd project/reference
-
-# Download the 10x mm10 reference
-wget -O refdata-gex-mm10-2020-A.tar.gz "https://cf.10xgenomics.com/supp/spatial-exp/refdata-gex-mm10-2020-A.tar.gz"
-
-# Extract the reference data
-tar -xvzf refdata-gex-mm10-2020-A.tar.gz
-```
-
-This will create the necessary `10x_mm10_reference/` directory.
+- Use Loupe Browser to annotate endocrine ROIs in each core  
+- Export ROI barcodes and incorporate into the metadata  
+- Subset the dataset using these endocrine-specific barcodes
 
 ---
 
-## Verifying the File Structure
+## 3. Data Loading and Integration in R
 
-You can verify the directory structure by running the following Python code:
+### a. Load and Merge Data
 
-```python
-import os
+- Load cores using `Load10X_Spatial()` in Seurat  
+- Merge into one Seurat object  
+- Add metadata (condition, sex, TMA ID, ROI)
 
-# Define the directory paths
-project_dir = "project"
-required_structure = {
-    "fastq": ["TMA1_HE_S1_L001_R1_001.fastq.gz"],
-    "images": ["TMA1_HE.jpg"],
-    "jsons": ["TMA1_HE.json"],
-    "reference": ["10x_mm10_reference"],
-    "outputs": ["spaceranger", "microarray"]
-}
+### b. Normalisation and Dimensionality Reduction
 
-# Function to verify the directory structure
-def verify_structure(base_dir, structure):
-    for dir_name, files in structure.items():
-        dir_path = os.path.join(base_dir, dir_name)
-        if os.path.isdir(dir_path):
-            print(f"✅ Directory {dir_path} exists.")
-            for file in files:
-                file_path = os.path.join(dir_path, file)
-                if os.path.isfile(file_path):
-                    print(f"  ✅ File {file} exists in {dir_name}.")
-                else:
-                    print(f"  ❌ File {file} is missing in {dir_name}.")
-        else:
-            print(f"❌ Directory {dir_path} is missing.")
-
-# Run the check
-verify_structure(project_dir, required_structure)
-```
-
-Alternatively, you can verify the file structure using the following shell command:
-
-```bash
-tree project/
-```
-
-This will print the directory and file structure for you to manually inspect.
+- Normalise with SCTransform  
+- Run PCA and UMAP for visualisation  
+- Cluster the data using `FindClusters()`
 
 ---
 
-## Running the Analysis
+## 4. Cell Type Annotation
 
-After setting up the directory structure, downloading the required files, and verifying everything, you can proceed with running the **Space Ranger** analysis for spatial transcriptomics and other processing steps.
+- Assign cell types using known markers (e.g. beta, alpha, delta, ductal)  
+- Label clusters and visualise spatial distribution across TMAs
 
-Refer to the provided Jupyter notebook (`****.ipynb`) for step-by-step analysis.
+---
+
+## 5. Differential Expression and Cell Composition
+
+### a. Differential Expression
+
+- Compare wild-type vs Polg^mut within each cell type and sex  
+- Use `FindMarkers()` to identify differentially expressed genes
+
+### b. Cell Composition Analysis
+
+- Quantify proportion of each cell type in ROIs per core  
+- Compare cell type frequencies across conditions
+
+---
+
+## 6. Pathway Enrichment
+
+Perform enrichment analysis on differentially expressed genes using:
+
+- KEGG  
+- MitoCarta  
+
+Optionally apply word embedding tools (e.g. Word2Vec) to identify novel modules linked to mitochondrial and nutrient-sensing pathways.
+
+---
+
+## 7. Output and Visualisation
+
+- UMAPs coloured by cell type, condition, and genotype  
+- Heatmaps of marker and differentially expressed genes  
+- Per-core plots showing endocrine cell composition  
+- Export UMAP coordinates and cluster IDs for downstream analysis
+
+---
+
+## Directory Structure
+
+root/
+├── fastq/ # Raw FASTQ files
+├── images/ # H&E images for SpaceRanger
+├── spaceranger_outputs/ # Output directories from SpaceRanger
+├── metadata/ # ROI annotations and sample metadata
+├── scripts/
+│ ├── run_spaceranger_all.sh
+│ ├── spatial_analysis.R # Main R analysis script
+├── results/ # UMAPs, plots, tables
+└── README.md
+
 
 
 ---
 
+## Requirements
 
-### License
+- SpaceRanger >= 2.1.0  
+- R >= 4.2.0 with Seurat, tidyverse, and relevant enrichment packages  
+- Loupe Browser (for ROI annotation)  
+
+---
+
+## Contact
+
+For questions or feedback, please contact:  
+Alana Mullins
+
 
 
 
