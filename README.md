@@ -94,23 +94,6 @@ Optionally apply word embedding tools (e.g. Word2Vec) to identify novel modules 
 
 ---
 
-## Directory Structure
-
-root/
-├── fastq/ # Raw FASTQ files
-├── images/ # H&E images for SpaceRanger
-├── spaceranger_outputs/ # Output directories from SpaceRanger
-├── metadata/ # ROI annotations and sample metadata
-├── scripts/
-│ ├── run_spaceranger_all.sh
-│ ├── spatial_analysis.R # Main R analysis script
-├── results/ # UMAPs, plots, tables
-└── README.md
-
-
-
----
-
 ## Requirements
 
 - SpaceRanger >= 2.1.0  
