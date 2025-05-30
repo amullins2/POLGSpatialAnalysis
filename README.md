@@ -81,8 +81,6 @@ Perform enrichment analysis on differentially expressed genes using:
 - KEGG  
 - MitoCarta  
 
-Optionally apply word embedding tools (e.g. Word2Vec) to identify novel modules linked to mitochondrial and nutrient-sensing pathways.
-
 ---
 
 ## 7. Output and Visualisation
