@@ -96,8 +96,8 @@ Optionally apply word embedding tools (e.g. Word2Vec) to identify novel modules 
 
 ## Requirements
 
-- SpaceRanger >= 2.1.0  
-- R >= 4.2.0 with Seurat, tidyverse, and relevant enrichment packages  
+- SpaceRanger: 2.1.0  
+- R: 4.2.0 with Seurat, tidyverse, and relevant enrichment packages  
 - Loupe Browser (for ROI annotation)  
 
 ---
