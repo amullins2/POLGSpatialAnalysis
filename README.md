@@ -1,6 +1,6 @@
 # Spatial Transcriptomics Analysis – Visium HD Mouse Pancreas TMAs
 
-This repository contains code and documentation for analysing spatial transcriptomics data from four Visium HD tissue microarrays (TMAs) of fixed mouse pancreas. The study compares wild-type and Polg^mut mice across both sexes, focusing on transcriptional and pathway changes in endocrine regions.
+This repository contains code and documentation for analysing spatial transcriptomics data from four Visium HD tissue microarrays (TMAs) of fixed mouse pancreas. The study compares wild-type and PolgMUT mice across both sexes, focusing on transcriptional and pathway changes in endocrine regions.
 
 ## Overview
 
@@ -21,7 +21,7 @@ Use the `run_spaceranger_all.sh` script to run `spaceranger count` for each tiss
 
 Create a metadata table including:
 
-- Genotype (wild-type or Polg^mut)
+- Genotype (wild-type or PolgMUT)
 - Sex (male or female)
 - TMA ID
 - Sample condition
