@@ -5,7 +5,7 @@ tar -xzvf spaceranger.tar.gz
 # Get absolute path to spaceranger folder
 SPACERANGER_PATH="$PWD/spaceranger-2.1.1"
 
-# Add spaceranger to PATH for this terminal session only
+# Add spaceranger to PATH for this terminal session 
 export PATH=$SPACERANGER_PATH:$PATH
 
 # Add spaceranger to PATH permanently 
