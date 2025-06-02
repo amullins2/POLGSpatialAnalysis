@@ -64,7 +64,7 @@ Create a metadata table including:
 
 ### a. Differential Expression
 
-- Compare wild-type vs Polg^mut within each cell type and sex  
+- Compare wild-type vs PolgMUT within each cell type and sex  
 - Use `FindMarkers()` to identify differentially expressed genes
 
 ### b. Cell Composition Analysis
