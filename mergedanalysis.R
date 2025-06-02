@@ -16,15 +16,15 @@
 # adjust file paths for metadata, tma data, loupe csvs, and gene lists accordingly.
 #
 # author: alana mullins
-# date: 30/05/2025
+# date: 18/05/2025
 # =============================================================================
 
-# install cran packages if missing
+# install cran packages, if not there
 cran_packages <- c("Seurat", "dplyr", "ggplot2", "patchwork")
 new_cran <- cran_packages[!(cran_packages %in% installed.packages()[,"Package"])]
 if(length(new_cran)) install.packages(new_cran)
 
-# install bioconductor packages if missing
+# install bioconductor packages, if not there
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 
