@@ -1,6 +1,6 @@
 # Spatial Transcriptomics Analysis – Visium HD Mouse Pancreas TMAs
 
-This repository contains a comprehensive pipeline for analyzing spatial transcriptomics data from four Visium HD tissue microarrays (TMAs) of mouse pancreatic islets. The study compares PolgMUT vs wild-type mice, focusing on differential gene expression and pathway changes in endocrine cell populations.
+This repository contains a comprehensive pipeline for analysing spatial transcriptomics data from four Visium HD tissue microarrays (TMAs) of mouse pancreatic islets. The study compares PolgMUT vs wild-type mice, focusing on differential gene expression and pathway changes in endocrine cell populations.
 
 ## Overview
 
@@ -12,7 +12,7 @@ The pipeline processes 4 TMAs with pancreatic islet data, performs batch correct
 - Harmony batch correction across TMAs
 - Pure cell type identification using hormone markers
 - Comprehensive differential expression analysis
-- Publication-ready visualizations
+- Publication-ready visualisations
 
 ---
 
@@ -113,10 +113,10 @@ fastqs,sample,library_type
 - Creates islet-specific Seurat objects with genotype labels
 
 ### Step 2: Batch Correction with Harmony
-- SCTransform normalization across all TMAs
+- SCTransform normalisation across all TMAs
 - PCA dimensionality reduction
 - Harmony batch correction to integrate TMAs
-- UMAP visualization of corrected data
+- UMAP visualisation of corrected data
 
 ### Step 3: Cell Type Identification
 Cell type identification incorporates comprehensive gene-specific marker panels and hormone expression thresholds. The pipeline uses established pancreatic cell markers to classify pure cell populations and identify tissue architecture:
@@ -126,16 +126,6 @@ Cell type identification incorporates comprehensive gene-specific marker panels 
 - **Gcg** (Glucagon): α-cell marker  
 - **Sst** (Somatostatin): δ-cell marker
 - **Ppy** (Pancreatic polypeptide): γ-cell marker
-
-**Additional cell type-specific markers:**
-- **β-cells**: Pdx1, MafA, Nkx6.1, Slc2a2 (Glut2), Ucn3
-- **α-cells**: Arx, Irx1, Irx2, Mafb, Tm4sf4
-- **δ-cells**: Hhex, Pdx1 (low expression), Lepr
-- **γ-cells**: Mafb, Ghrl (ghrelin)
-- **Ductal cells**: Krt19, Sox9, Hnf1b, Cftr, Spp1
-- **Acinar cells**: Amy1, Amy2a, Cpa1, Ptf1a, Ctrb1
-- **Endothelial cells**: Pecam1, Cdh5, Tie1, Plvap
-- **Immune cells**: Ptprc (Cd45), Cd68, Cd3e, Lyz2
 
 **Classification criteria for pure endocrine cells:**
 - **β-cells**: High Ins1/Ins2 (>0.5), low Gcg/Sst (<0.5)
@@ -152,7 +142,7 @@ Only "pure" cell types with clear single-hormone dominance are used for downstre
 - Multiple testing correction (Bonferroni)
 - Minimum 10 cells per group per comparison
 
-### Step 5: Visualization and Export
+### Step 5: Visualisation and Export
 - Volcano plots for each cell type
 - UMAP plots colored by genotype and cell type
 - Batch correction comparison plots
