@@ -60,7 +60,7 @@ chmod +x run_spaceranger_all.sh
 ### 3. Run Spatial Analysis Pipeline
 ```R
 # Load the analysis functions
-source("polg_spatial_analysis.R")
+source("mergedanalysisV2")
 
 # Run complete pipeline
 results <- run_polg_analysis_pipeline(
