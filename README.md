@@ -11,8 +11,8 @@ The pipeline processes 4 TMAs with pancreatic islet data, performs batch correct
 - Coordinate matching between old and new data formats
 - Harmony batch correction across TMAs
 - Pure cell type identification using hormone markers
-- Comprehensive differential expression analysis
-- Publication-ready visualisations
+- Differential expression analysis
+- Visualisations
 
 ---
 
